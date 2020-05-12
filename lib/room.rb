@@ -1,5 +1,5 @@
 class Room
-  attr_accessor :title, :date_created, :price, :url
+  attr_accessor :id, :title, :date_created, :price, :url
 
   def self.create_from_hash(hash) #instantiantate and save
     new_from_hash(hash).save
@@ -15,6 +15,18 @@ class Room
     room
   end
 
+  def self.new_from_db(row)
+    self.new.tap do |room|
+      room.id = row[0]
+      room.title = row[1]
+      room.date_created = row[2]
+      room.price = row[3]
+      room.url = row[4]
+    end
+  end
+
+
+
   def self.all
     sql = <<-SQL
       SELECT * FROM rooms;
@@ -22,7 +34,24 @@ class Room
 
     rows = DB[:connection].execute(sql)
 
-    #go from a row
+    #go from a row [1, title, date, price, url] to an instance #<room>
+
+    rows.collect do |row|
+      self.new_from_db(row)
+    end
+
+  end
+
+
+  def self.by_price(order = "ASC")
+    case order
+    when "ASC"
+      self.all.sort_by{|r| r.price}
+    when "DESC"
+      self.all.sort_by{|r| r.price}.reverse
+    end
+  #Room.by_price("ASC") #=> lowest price room first
+  #Room.by Price("DESC") #+> highest price room first
   end
 
   def save
