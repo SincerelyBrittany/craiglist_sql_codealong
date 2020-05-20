@@ -1,0 +1,3 @@
+[submodule "craiglist_sql_codealong"]
+	path = craiglist_sql_codealong
+	url = https://github.com/SincerelyBrittany/craiglist_sql_codealong
