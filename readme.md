@@ -5,6 +5,11 @@ CLI for finding a roommate
 - Show listing
 - Update listing
 -
+
+
+ youtube videos: https://www.youtube.com/watch?v=1eIgKGukBlg
+ Github link: https://github.com/learn-co-curriculum/roommate-finder-cli
+
 Scarping Roommates
 
 Persisting to the database so that it is fast.
